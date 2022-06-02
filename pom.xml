@@ -24,6 +24,7 @@
           <systemPropertyVariables>
             <selenide.headless>true</selenide.headless>
             <selenide.downloadsFolder>target/downloads</selenide.downloadsFolder>
+			<selenide.holdBrowserOpen>false</selenide.holdBrowserOpen>
           </systemPropertyVariables>
         </configuration>
       </plugin>

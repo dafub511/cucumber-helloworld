@@ -16,11 +16,6 @@ public class GoogleImageSearchStepDefinitions {
   
   @When("click \"Images\" link")
   public void chooseImagesAsSearchTarget() {
-	screenshot("init");
-    $(byText("Acepto")).click();
-	screenshot("antes");
-	$(byText("Acepto")).should(disappear);
-	screenshot("después");
 	$(byText("Imágenes")).click();
   }
 

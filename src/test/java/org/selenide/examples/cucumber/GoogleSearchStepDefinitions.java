@@ -6,16 +6,35 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.screenshot;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.disappear;
+import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class GoogleSearchStepDefinitions {
+  static boolean cookieBannerAccepted = false;	
+	
   @Given("an open browser with google.com")
   public void openGoogleSearch() {
     Configuration.reportsFolder = "target/surefire-reports";
-    open("https://google.com/ncr");
+    open("https://google.es/");
+
+	if (!cookieBannerAccepted)
+	{
+System.out.println(1);
+//		screenshot("init");
+		try{Thread.sleep(3000);}catch(Exception e){}
+System.out.println(2);
+//		$(byText("Acepto")).should(appear);
+		$(byText("Acepto")).click();
+		try{Thread.sleep(100);}catch(Exception e){}
+		$(byText("Acepto")).should(disappear);
+		try{Thread.sleep(100);}catch(Exception e){}
+		cookieBannerAccepted = true;
+System.out.println(3);
+	}
   }
 
   @When("a keyword {string} is entered in input field")
