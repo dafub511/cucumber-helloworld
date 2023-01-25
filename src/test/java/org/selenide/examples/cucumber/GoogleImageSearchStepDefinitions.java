@@ -16,14 +16,14 @@ public class GoogleImageSearchStepDefinitions {
   
   @When("click \"Images\" link")
   public void chooseImagesAsSearchTarget() {
-	$(byText("Imágenes")).click();
+	$(byText("Images")).click();
   }
 
   @When("enter a keyword {string} in input field")
   public void enterKeyword(String keyword) {
     this.keyword = keyword;
     $(By.name("q")).val(keyword).pressEnter();
-	screenshot("Imágenes");
+	screenshot("Images");
   }
 
   @Then("at least top {int} matching images should be shown")
