@@ -24,9 +24,9 @@ public class GoogleSearchStepDefinitions {
 	if (!cookieBannerAccepted)
 	{
 		try{Thread.sleep(3000);}catch(Exception e){}
-		$(byText("Acepto")).click();
+		$(byText("Accept all")).click();
 		try{Thread.sleep(100);}catch(Exception e){}
-		$(byText("Acepto")).should(disappear);
+		$(byText("Accept all")).should(disappear);
 		try{Thread.sleep(100);}catch(Exception e){}
 		cookieBannerAccepted = true;
 	}
