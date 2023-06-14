@@ -23,11 +23,11 @@ public class GoogleSearchStepDefinitions {
 
 	if (!cookieBannerAccepted)
 	{
-		try{Thread.sleep(3000);}catch(Exception e){}
+		try{Thread.sleep(4000);}catch(Exception e){}
 		$(byText("Accept all")).click();
-		try{Thread.sleep(100);}catch(Exception e){}
+		try{Thread.sleep(400);}catch(Exception e){}
 		$(byText("Accept all")).should(disappear);
-		try{Thread.sleep(100);}catch(Exception e){}
+		try{Thread.sleep(400);}catch(Exception e){}
 		cookieBannerAccepted = true;
 	}
   }
