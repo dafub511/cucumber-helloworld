@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.$$;
 public class GoogleImageSearchStepDefinitions {
   private String keyword;
   
-  @When("click \"Images\" link")
+  @When("click \"Imagenes\" link")
   public void chooseImagesAsSearchTarget() {
 	$(byText("Imagenes")).click();
   }
