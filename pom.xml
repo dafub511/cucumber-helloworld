@@ -1,50 +1,76 @@
-package org.selenide.examples.cucumber;
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.selenide.examples</groupId>
+  <artifactId>selenide-cucumber</artifactId>
+  <version>1.0-SNAPSHOT</version>
 
-import com.codeborne.selenide.Configuration;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.disappear;
-import static com.codeborne.selenide.Condition.appear;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+  <build>
+    <defaultGoal>dependency:copy-dependencies test</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
+          <systemPropertyVariables>
+            <selenide.headless>false</selenide.headless>
+            <selenide.downloadsFolder>target/downloads</selenide.downloadsFolder>
+			<selenide.holdBrowserOpen>false</selenide.holdBrowserOpen>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
-public class GoogleSearchStepDefinitions {
-  static boolean cookieBannerAccepted = false;	
-	
-  @Given("an open browser with google.com")
-  public void openGoogleSearch() {
-    Configuration.reportsFolder = "target/surefire-reports";
-    open("https://google.es/");
+  <dependencies>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>6.9.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>6.9.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.codeborne</groupId>
+      <artifactId>selenide</artifactId>
+      <version>5.18.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.30</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-	if (!cookieBannerAccepted)
-	{
-		try{Thread.sleep(3000);}catch(Exception e){}
-		$(byText("Accept all")).click();
-		try{Thread.sleep(100);}catch(Exception e){}
-		$(byText("Accept all")).should(disappear);
-		try{Thread.sleep(100);}catch(Exception e){}
-		cookieBannerAccepted = true;
-	}
-  }
-
-  @When("a keyword {string} is entered in input field")
-  public void enterKeyword(String keyword) {
-    $(By.name("q")).val(keyword).pressEnter();
-	screenshot(keyword);
-  }
-
-  @Then("at least top {int} matches should be shown")
-  public void topTenMatchesShouldBeShown(int resultsCount) {
-    $$("#res .g").shouldHave(sizeGreaterThanOrEqual(resultsCount));
-  }
-
-  @Then("the first one should contain {string}")
-  public void theFirstOneShouldContainKeyword(String expectedText) {
-    $("#res .g").shouldHave(text(expectedText));
-  }
-}
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.22.2</version>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
