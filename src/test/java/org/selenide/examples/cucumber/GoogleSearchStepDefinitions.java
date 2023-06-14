@@ -7,44 +7,40 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Condition.disappear;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class GoogleSearchStepDefinitions {
-  static boolean cookieBannerAccepted = false;	
-	
-  @Given("an open browser with google.com")
-  public void openGoogleSearch() {
-    Configuration.reportsFolder = "target/surefire-reports";
-    open("https://google.es/");
+    static boolean cookieBannerAccepted = false;
 
-	if (!cookieBannerAccepted)
-	{
-		try{Thread.sleep(4000);}catch(Exception e){}
-		$(byText("Accept all")).click();
-		try{Thread.sleep(400);}catch(Exception e){}
-		$(byText("Accept all")).should(disappear);
-		try{Thread.sleep(400);}catch(Exception e){}
-		cookieBannerAccepted = true;
-	}
-  }
+    @Given("an open browser with google.com")
+    public void openGoogleSearch() {
+        Configuration.reportsFolder = "target/surefire-reports";
+        open("https://google.com/");
 
-  @When("a keyword {string} is entered in input field")
-  public void enterKeyword(String keyword) {
-    $(By.name("q")).val(keyword).pressEnter();
-	screenshot(keyword);
-  }
+        if (!cookieBannerAccepted) {
+            $(byText("I agree")).click();
+            $(byText("I agree")).should(disappear);
+            cookieBannerAccepted = true;
+        }
+    }
 
-  @Then("at least top {int} matches should be shown")
-  public void topTenMatchesShouldBeShown(int resultsCount) {
-    $$("#res .g").shouldHave(sizeGreaterThanOrEqual(resultsCount));
-  }
+    @When("a keyword {string} is entered in input field")
+    public void enterKeyword(String keyword) {
+        $(By.name("q")).shouldBe(visible).val(keyword).pressEnter();
+        screenshot(keyword);
+    }
 
-  @Then("the first one should contain {string}")
-  public void theFirstOneShouldContainKeyword(String expectedText) {
-    $("#res .g").shouldHave(text(expectedText));
-  }
+    @Then("at least top {int} matches should be shown")
+    public void topTenMatchesShouldBeShown(int resultsCount) {
+        $$("#res .g").shouldHave(sizeGreaterThanOrEqual(resultsCount));
+    }
+
+    @Then("the first one should contain {string}")
+    public void theFirstOneShouldContainKeyword(String expectedText) {
+        $("#res .g").shouldHave(text(expectedText));
+    }
 }
