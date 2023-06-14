@@ -23,7 +23,7 @@ public class GoogleImageSearchStepDefinitions {
   public void enterKeyword(String keyword) {
     this.keyword = keyword;
     $(By.name("q")).val(keyword).pressEnter();
-	screenshot("Images");
+	screenshot("Imagenes");
   }
 
   @Then("at least top {int} matching images should be shown")
