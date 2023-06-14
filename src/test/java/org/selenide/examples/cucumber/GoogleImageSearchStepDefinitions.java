@@ -26,7 +26,7 @@ public class GoogleImageSearchStepDefinitions {
 	screenshot("Imagenes");
   }
 
-  @Then("at least top {int} matching images should be shown")
+  @Then("at least top {int} matching imagenes should be shown")
   public void topTenMatchedImagesShouldBeShown(int resultsCount) {
     $$(".rg_i").shouldHave(sizeGreaterThanOrEqual(resultsCount));
   }
