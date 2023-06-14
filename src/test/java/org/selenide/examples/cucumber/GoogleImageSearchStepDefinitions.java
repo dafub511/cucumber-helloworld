@@ -16,7 +16,7 @@ public class GoogleImageSearchStepDefinitions {
   
   @When("click \"Images\" link")
   public void chooseImagesAsSearchTarget() {
-	$(byText("Images")).click();
+	$(byText("Imagenes")).click();
   }
 
   @When("enter a keyword {string} in input field")
