@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.$$;
 public class GoogleImageSearchStepDefinitions {
   private String keyword;
   
-  @When("click \"Imagenes\" link")
+  @When("click \"Images\" link")
   public void chooseImagesAsSearchTarget() {
 	$(byText("Imágenes")).click();
   }
@@ -23,7 +23,7 @@ public class GoogleImageSearchStepDefinitions {
   public void enterKeyword(String keyword) {
     this.keyword = keyword;
     $(By.name("q")).val(keyword).pressEnter();
-	screenshot("Imagenes");
+	screenshot("Images");
   }
 
   @Then("at least top {int} matching imagenes should be shown")
